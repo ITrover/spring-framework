@@ -124,10 +124,10 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 			closeBeanFactory();
 		}
 		try {
-			DefaultListableBeanFactory beanFactory = createBeanFactory();
-			beanFactory.setSerializationId(getId());
-			customizeBeanFactory(beanFactory);
-			loadBeanDefinitions(beanFactory);
+			DefaultListableBeanFactory beanFactory = createBeanFactory(); // 创建DefaultListableBeanFactory
+			beanFactory.setSerializationId(getId()); // 为了序列化指定id，如果需要的话，让这个BeanFactory从id反序列化到BeanFactory对象
+			customizeBeanFactory(beanFactory); // 定制beanFactory，设置相关属性
+			loadBeanDefinitions(beanFactory); // beanDefinitionReader，加载BeanDefinition
 			this.beanFactory = beanFactory;
 		}
 		catch (IOException ex) {
@@ -212,10 +212,10 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	 * @see DefaultListableBeanFactory#setAllowEagerClassLoading
 	 */
 	protected void customizeBeanFactory(DefaultListableBeanFactory beanFactory) {
-		if (this.allowBeanDefinitionOverriding != null) {
+		if (this.allowBeanDefinitionOverriding != null) { // 设置属性：是否允许覆盖同名称的不同定义的对象
 			beanFactory.setAllowBeanDefinitionOverriding(this.allowBeanDefinitionOverriding);
 		}
-		if (this.allowCircularReferences != null) {
+		if (this.allowCircularReferences != null) { // 设置属性：是否允许bean之间存在循环依赖
 			beanFactory.setAllowCircularReferences(this.allowCircularReferences);
 		}
 	}

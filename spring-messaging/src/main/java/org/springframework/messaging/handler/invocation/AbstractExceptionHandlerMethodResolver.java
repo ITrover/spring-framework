@@ -137,14 +137,14 @@ public abstract class AbstractExceptionHandlerMethodResolver {
 		List<Class<? extends Throwable>> matches = new ArrayList<>();
 		for (Class<? extends Throwable> mappedException : this.mappedMethods.keySet()) {
 			if (mappedException.isAssignableFrom(exceptionType)) {
-				matches.add(mappedException);
+				matches.add(mappedException); // 获取所有匹配的异常处理方法
 			}
 		}
 		if (!matches.isEmpty()) {
 			if (matches.size() > 1) {
-				matches.sort(new ExceptionDepthComparator(exceptionType));
+				matches.sort(new ExceptionDepthComparator(exceptionType)); // 通过目标对象和当前异常的继承关系排序，继承层数越少则优先级越高
 			}
-			return this.mappedMethods.get(matches.get(0));
+			return this.mappedMethods.get(matches.get(0)); // 获取最匹配的
 		}
 		else {
 			return NO_MATCHING_EXCEPTION_HANDLER_METHOD;

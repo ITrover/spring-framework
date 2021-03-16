@@ -122,7 +122,7 @@ public interface BeanFactory {
 	 * {@code myJndiObject} is a FactoryBean, getting {@code &myJndiObject}
 	 * will return the factory, not the instance returned by the factory.
 	 */
-	String FACTORY_BEAN_PREFIX = "&";
+	String FACTORY_BEAN_PREFIX = "&"; // FactoryBean的前缀
 
 
 	/**
