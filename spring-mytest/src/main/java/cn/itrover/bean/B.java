@@ -12,7 +12,7 @@ public class B {
 		this.a = a;
 	}
 
-//	public B(){
-//
-//	}
+	public B(){
+
+	}
 }

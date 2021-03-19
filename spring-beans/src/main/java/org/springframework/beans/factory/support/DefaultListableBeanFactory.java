@@ -915,14 +915,14 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 		// Iterate over a copy to allow for init methods which in turn register new bean definitions.
 		// While this may not be part of the regular factory bootstrap, it does otherwise work fine.
-		List<String> beanNames = new ArrayList<>(this.beanDefinitionNames);
+		List<String> beanNames = new ArrayList<>(this.beanDefinitionNames); // 获取所有beanDefinitionName
 
 		// Trigger initialization of all non-lazy singleton beans...
 		for (String beanName : beanNames) {
-			RootBeanDefinition bd = getMergedLocalBeanDefinition(beanName);
-			if (!bd.isAbstract() && bd.isSingleton() && !bd.isLazyInit()) {
-				if (isFactoryBean(beanName)) {
-					Object bean = getBean(FACTORY_BEAN_PREFIX + beanName);
+			RootBeanDefinition bd = getMergedLocalBeanDefinition(beanName); // 获取 RootBeanDefinition，它表示自己的 BeanDefinition 和可能存在父类的 BeanDefinition 合并后的对象
+			if (!bd.isAbstract() && bd.isSingleton() && !bd.isLazyInit()) { // 不是抽象 && 是单例 && 不是懒加载
+				if (isFactoryBean(beanName)) { // 判断是否是工厂bean
+					Object bean = getBean(FACTORY_BEAN_PREFIX + beanName); // 如果是 factoryBean，则 加上 &，先创建工厂 bea
 					if (bean instanceof FactoryBean) {
 						FactoryBean<?> factory = (FactoryBean<?>) bean;
 						boolean isEagerInit;
@@ -941,11 +941,11 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 					}
 				}
 				else {
-					getBean(beanName);
+					getBean(beanName); // 非FactoryBean，用这个方法创建对象
 				}
 			}
 		}
-
+		// 为合适的bean触发post-initialization回调
 		// Trigger post-initialization callback for all applicable beans...
 		for (String beanName : beanNames) {
 			Object singletonInstance = getSingleton(beanName);
@@ -960,7 +960,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 					}, getAccessControlContext());
 				}
 				else {
-					smartSingleton.afterSingletonsInstantiated();
+					smartSingleton.afterSingletonsInstantiated(); // 回调 afterSingletonsInstantiated() 方法
 				}
 				smartInitialize.end();
 			}
