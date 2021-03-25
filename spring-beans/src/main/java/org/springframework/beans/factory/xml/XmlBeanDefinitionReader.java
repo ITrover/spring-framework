@@ -307,7 +307,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 */
 	@Override
 	public int loadBeanDefinitions(Resource resource) throws BeanDefinitionStoreException {
-		return loadBeanDefinitions(new EncodedResource(resource));
+		return loadBeanDefinitions(new EncodedResource(resource)); // 设置编码后加载
 	}
 
 	/**
@@ -388,7 +388,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 		try {
 			Document doc = doLoadDocument(inputSource, resource);
-			int count = registerBeanDefinitions(doc, resource);
+			int count = registerBeanDefinitions(doc, resource); // 注册beanDefinition
 			if (logger.isDebugEnabled()) {
 				logger.debug("Loaded " + count + " bean definitions from " + resource);
 			}
@@ -446,7 +446,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 		if (validationModeToUse != VALIDATION_AUTO) {
 			return validationModeToUse;
 		}
-		int detectedMode = detectValidationMode(resource);
+		int detectedMode = detectValidationMode(resource); // 选择xml校验模式
 		if (detectedMode != VALIDATION_AUTO) {
 			return detectedMode;
 		}
@@ -484,7 +484,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 		}
 
 		try {
-			return this.validationModeDetector.detectValidationMode(inputStream);
+			return this.validationModeDetector.detectValidationMode(inputStream); // 选择xml的校验模式 dtd || xsd
 		}
 		catch (IOException ex) {
 			throw new BeanDefinitionStoreException("Unable to determine validation mode for [" +

@@ -72,7 +72,7 @@ public interface AutowireCapableBeanFactory extends BeanFactory {
 
 	/**
 	 * Constant that indicates autowiring bean properties by name
-	 * (applying to all bean property setters).
+	 * (applying to all bean property setters). 用于所有bean的所有setter
 	 * @see #createBean
 	 * @see #autowire
 	 * @see #autowireBeanProperties

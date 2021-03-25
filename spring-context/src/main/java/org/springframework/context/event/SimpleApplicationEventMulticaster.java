@@ -135,12 +135,12 @@ public class SimpleApplicationEventMulticaster extends AbstractApplicationEventM
 	public void multicastEvent(final ApplicationEvent event, @Nullable ResolvableType eventType) {
 		ResolvableType type = (eventType != null ? eventType : resolveDefaultEventType(event));
 		Executor executor = getTaskExecutor();
-		for (ApplicationListener<?> listener : getApplicationListeners(event, type)) {
+		for (ApplicationListener<?> listener : getApplicationListeners(event, type)) { // 获取对应的监听器
 			if (executor != null) {
-				executor.execute(() -> invokeListener(listener, event));
+				executor.execute(() -> invokeListener(listener, event)); // 如果有线程池，则异步通知监听器
 			}
 			else {
-				invokeListener(listener, event);
+				invokeListener(listener, event); // 同步通知
 			}
 		}
 	}
@@ -156,13 +156,13 @@ public class SimpleApplicationEventMulticaster extends AbstractApplicationEventM
 	 * @since 4.1
 	 */
 	protected void invokeListener(ApplicationListener<?> listener, ApplicationEvent event) {
-		ErrorHandler errorHandler = getErrorHandler();
-		if (errorHandler != null) {
+		ErrorHandler errorHandler = getErrorHandler(); // 获取异常处理器
+		if (errorHandler != null) { // 如果有异常处理器
 			try {
 				doInvokeListener(listener, event);
 			}
 			catch (Throwable err) {
-				errorHandler.handleError(err);
+				errorHandler.handleError(err); // 当异常发生时，使用异常处理器处理异常
 			}
 		}
 		else {
@@ -175,7 +175,7 @@ public class SimpleApplicationEventMulticaster extends AbstractApplicationEventM
 		try {
 			listener.onApplicationEvent(event);
 		}
-		catch (ClassCastException ex) {
+		catch (ClassCastException ex) { // 只会处理类型转换异常
 			String msg = ex.getMessage();
 			if (msg == null || matchesClassCastMessage(msg, event.getClass()) ||
 					(event instanceof PayloadApplicationEvent &&

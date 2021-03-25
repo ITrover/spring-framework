@@ -49,7 +49,7 @@ public class AspectJAfterAdvice extends AbstractAspectJAdvice
 			return mi.proceed();
 		}
 		finally {
-			invokeAdviceMethod(getJoinPointMatch(), null, null);
+			invokeAdviceMethod(getJoinPointMatch(), null, null); // 当方法返回后，执行拦截器方法
 		}
 	}
 

@@ -344,7 +344,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 			return proxy;
 		}
 
-		this.advisedBeans.put(cacheKey, Boolean.FALSE);
+		this.advisedBeans.put(cacheKey, Boolean.FALSE); // 不需要增强
 		return bean;
 	}
 

@@ -151,10 +151,10 @@ public class DefaultResourceLoader implements ResourceLoader {
 			}
 		}
 
-		if (location.startsWith("/")) {
+		if (location.startsWith("/")) { // 绝对路径
 			return getResourceByPath(location);
 		}
-		else if (location.startsWith(CLASSPATH_URL_PREFIX)) {
+		else if (location.startsWith(CLASSPATH_URL_PREFIX)) { // classpath
 			return new ClassPathResource(location.substring(CLASSPATH_URL_PREFIX.length()), getClassLoader());
 		}
 		else {

@@ -167,10 +167,10 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	private final Map<String, BeanDefinitionHolder> mergedBeanDefinitionHolders = new ConcurrentHashMap<>(256);
 
 	/** Map of singleton and non-singleton bean names, keyed by dependency type. */
-	private final Map<Class<?>, String[]> allBeanNamesByType = new ConcurrentHashMap<>(64);
+	private final Map<Class<?>, String[]> allBeanNamesByType = new ConcurrentHashMap<>(64); // 缓存 type -> 所有beanName
 
 	/** Map of singleton-only bean names, keyed by dependency type. */
-	private final Map<Class<?>, String[]> singletonBeanNamesByType = new ConcurrentHashMap<>(64);
+	private final Map<Class<?>, String[]> singletonBeanNamesByType = new ConcurrentHashMap<>(64); // 缓存 type -> 单例beanName
 
 	/** List of bean definition names, in registration order. */
 	private volatile List<String> beanDefinitionNames = new ArrayList<>(256);
@@ -183,7 +183,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	private volatile String[] frozenBeanDefinitionNames;
 
 	/** Whether bean definition metadata may be cached for all beans. */
-	private volatile boolean configurationFrozen;
+	private volatile boolean configurationFrozen; // 所有bean的definition已经被缓存了
 
 
 	/**
@@ -916,7 +916,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		// Iterate over a copy to allow for init methods which in turn register new bean definitions.
 		// While this may not be part of the regular factory bootstrap, it does otherwise work fine.
 		List<String> beanNames = new ArrayList<>(this.beanDefinitionNames); // 获取所有beanDefinitionName
-
+		// 触发所有非懒加载单例bean初始化方法
 		// Trigger initialization of all non-lazy singleton beans...
 		for (String beanName : beanNames) {
 			RootBeanDefinition bd = getMergedLocalBeanDefinition(beanName); // 获取 RootBeanDefinition，它表示自己的 BeanDefinition 和可能存在父类的 BeanDefinition 合并后的对象
@@ -949,7 +949,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		// Trigger post-initialization callback for all applicable beans...
 		for (String beanName : beanNames) {
 			Object singletonInstance = getSingleton(beanName);
-			if (singletonInstance instanceof SmartInitializingSingleton) {
+			if (singletonInstance instanceof SmartInitializingSingleton) { // SmartInitializingSingleton才会往下执行
 				StartupStep smartInitialize = this.getApplicationStartup().start("spring.beans.smart-initialize")
 						.tag("beanName", beanName);
 				SmartInitializingSingleton smartSingleton = (SmartInitializingSingleton) singletonInstance;
@@ -981,7 +981,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 		if (beanDefinition instanceof AbstractBeanDefinition) {
 			try {
-				((AbstractBeanDefinition) beanDefinition).validate();
+				((AbstractBeanDefinition) beanDefinition).validate(); // 校验
 			}
 			catch (BeanDefinitionValidationException ex) {
 				throw new BeanDefinitionStoreException(beanDefinition.getResourceDescription(), beanName,
@@ -990,11 +990,11 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		}
 
 		BeanDefinition existingDefinition = this.beanDefinitionMap.get(beanName);
-		if (existingDefinition != null) {
-			if (!isAllowBeanDefinitionOverriding()) {
+		if (existingDefinition != null) { // 已经注册了这个beanName
+			if (!isAllowBeanDefinitionOverriding()) { // 不允许覆盖，则报错
 				throw new BeanDefinitionOverrideException(beanName, beanDefinition, existingDefinition);
 			}
-			else if (existingDefinition.getRole() < beanDefinition.getRole()) {
+			else if (existingDefinition.getRole() < beanDefinition.getRole()) { // 传入的bean的优先级大于之前的
 				// e.g. was ROLE_APPLICATION, now overriding with ROLE_SUPPORT or ROLE_INFRASTRUCTURE
 				if (logger.isInfoEnabled()) {
 					logger.info("Overriding user-defined bean definition for bean '" + beanName +
@@ -1002,7 +1002,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 							existingDefinition + "] with [" + beanDefinition + "]");
 				}
 			}
-			else if (!beanDefinition.equals(existingDefinition)) {
+			else if (!beanDefinition.equals(existingDefinition)) { // 两个beanDefinition不相等
 				if (logger.isDebugEnabled()) {
 					logger.debug("Overriding bean definition for bean '" + beanName +
 							"' with a different definition: replacing [" + existingDefinition +
@@ -1016,7 +1016,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 							"] with [" + beanDefinition + "]");
 				}
 			}
-			this.beanDefinitionMap.put(beanName, beanDefinition);
+			this.beanDefinitionMap.put(beanName, beanDefinition); // 覆盖
 		}
 		else {
 			if (hasBeanCreationStarted()) {
@@ -1340,7 +1340,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 				return multipleBeans;
 			}
 
-			Map<String, Object> matchingBeans = findAutowireCandidates(beanName, type, descriptor);
+			Map<String, Object> matchingBeans = findAutowireCandidates(beanName, type, descriptor); // 寻找用于注入的候选的bean
 			if (matchingBeans.isEmpty()) {
 				if (isRequired(descriptor)) {
 					raiseNoMatchingBeanFound(type, descriptor.getResolvableType(), descriptor);
@@ -1377,7 +1377,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 				autowiredBeanNames.add(autowiredBeanName);
 			}
 			if (instanceCandidate instanceof Class) {
-				instanceCandidate = descriptor.resolveCandidate(autowiredBeanName, type, this);
+				instanceCandidate = descriptor.resolveCandidate(autowiredBeanName, type, this); // 从BeanFactor中获取需要的bean
 			}
 			Object result = instanceCandidate;
 			if (result instanceof NullBean) {

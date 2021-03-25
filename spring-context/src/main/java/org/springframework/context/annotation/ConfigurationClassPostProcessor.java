@@ -254,7 +254,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) {
 		int factoryId = System.identityHashCode(beanFactory);
-		if (this.factoriesPostProcessed.contains(factoryId)) {
+		if (this.factoriesPostProcessed.contains(factoryId)) { // 每个beanFactory只能执行一次此方法
 			throw new IllegalStateException(
 					"postProcessBeanFactory already called on this post-processor against " + beanFactory);
 		}
@@ -265,8 +265,8 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 			processConfigBeanDefinitions((BeanDefinitionRegistry) beanFactory);
 		}
 
-		enhanceConfigurationClasses(beanFactory);
-		beanFactory.addBeanPostProcessor(new ImportAwareBeanPostProcessor(beanFactory));
+		enhanceConfigurationClasses(beanFactory); // 增强配置类
+		beanFactory.addBeanPostProcessor(new ImportAwareBeanPostProcessor(beanFactory)); // 添加一个Bean后置处理器
 	}
 
 	/**
@@ -438,7 +438,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		}
 
 		ConfigurationClassEnhancer enhancer = new ConfigurationClassEnhancer();
-		for (Map.Entry<String, AbstractBeanDefinition> entry : configBeanDefs.entrySet()) {
+		for (Map.Entry<String, AbstractBeanDefinition> entry : configBeanDefs.entrySet()) { // 增强配置类，带有注解@Configuration的类
 			AbstractBeanDefinition beanDef = entry.getValue();
 			// If a @Configuration class gets proxied, always proxy the target class
 			beanDef.setAttribute(AutoProxyUtils.PRESERVE_TARGET_CLASS_ATTRIBUTE, Boolean.TRUE);

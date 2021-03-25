@@ -1,5 +1,7 @@
 package cn.itrover.bean;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class User {
 	private String id;
 	private String name;
@@ -34,5 +36,13 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void init(){
+		name = "changed by init";
+	}
+
+	private void destroy() {
+		System.out.println("结束了");
 	}
 }

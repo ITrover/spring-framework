@@ -250,19 +250,19 @@ public class AnnotatedBeanDefinitionReader {
 			@Nullable Class<? extends Annotation>[] qualifiers, @Nullable Supplier<T> supplier,
 			@Nullable BeanDefinitionCustomizer[] customizers) {
 		// 解析传入的配置类
-		AnnotatedGenericBeanDefinition abd = new AnnotatedGenericBeanDefinition(beanClass);
+		AnnotatedGenericBeanDefinition abd = new AnnotatedGenericBeanDefinition(beanClass); // 新建一个注解通用BeanDefinition
 		if (this.conditionEvaluator.shouldSkip(abd.getMetadata())) { // 判断是否需要跳过，判断依据是此类上有没有 @Conditional 注解
 			return;
 		}
 
-		abd.setInstanceSupplier(supplier);
+		abd.setInstanceSupplier(supplier); // 设置实例供给器
 		ScopeMetadata scopeMetadata = this.scopeMetadataResolver.resolveScopeMetadata(abd);
 		abd.setScope(scopeMetadata.getScopeName());
 		String beanName = (name != null ? name : this.beanNameGenerator.generateBeanName(abd, this.registry));
 		// 处理类上的通用注解
 		AnnotationConfigUtils.processCommonDefinitionAnnotations(abd);
 		if (qualifiers != null) {
-			for (Class<? extends Annotation> qualifier : qualifiers) {
+			for (Class<? extends Annotation> qualifier : qualifiers) { // 处理类上的每个注解
 				if (Primary.class == qualifier) {
 					abd.setPrimary(true);
 				}

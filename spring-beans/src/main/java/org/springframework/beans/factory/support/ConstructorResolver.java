@@ -172,7 +172,7 @@ class ConstructorResolver {
 
 			if (candidates.length == 1 && explicitArgs == null && !mbd.hasConstructorArgumentValues()) {
 				Constructor<?> uniqueCandidate = candidates[0];
-				if (uniqueCandidate.getParameterCount() == 0) {
+				if (uniqueCandidate.getParameterCount() == 0) { // 如果唯一的构造器的参数为0
 					synchronized (mbd.constructorArgumentLock) {
 						mbd.resolvedConstructorOrFactoryMethod = uniqueCandidate;
 						mbd.constructorArgumentsResolved = true;
@@ -195,7 +195,7 @@ class ConstructorResolver {
 			else {
 				ConstructorArgumentValues cargs = mbd.getConstructorArgumentValues();
 				resolvedValues = new ConstructorArgumentValues();
-				minNrOfArgs = resolveConstructorArguments(beanName, mbd, bw, cargs, resolvedValues);
+				minNrOfArgs = resolveConstructorArguments(beanName, mbd, bw, cargs, resolvedValues); // 处理构造器参数
 			}
 
 			AutowireUtils.sortConstructors(candidates);
@@ -223,7 +223,7 @@ class ConstructorResolver {
 						if (paramNames == null) {
 							ParameterNameDiscoverer pnd = this.beanFactory.getParameterNameDiscoverer();
 							if (pnd != null) {
-								paramNames = pnd.getParameterNames(candidate);
+								paramNames = pnd.getParameterNames(candidate); // 获得参数
 							}
 						}
 						argsHolder = createArgumentArray(beanName, mbd, resolvedValues, bw, paramTypes, paramNames,

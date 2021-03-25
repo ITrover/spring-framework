@@ -665,7 +665,7 @@ class CglibAopProxy implements AopProxy, Serializable {
 			Object oldProxy = null;
 			boolean setProxyContext = false;
 			Object target = null;
-			TargetSource targetSource = this.advised.getTargetSource();
+			TargetSource targetSource = this.advised.getTargetSource(); // 代理前的对象
 			try {
 				if (this.advised.exposeProxy) {
 					// Make invocation available if necessary.
@@ -673,9 +673,9 @@ class CglibAopProxy implements AopProxy, Serializable {
 					setProxyContext = true;
 				}
 				// Get as late as possible to minimize the time we "own" the target, in case it comes from a pool...
-				target = targetSource.getTarget();
+				target = targetSource.getTarget(); // 目标对象
 				Class<?> targetClass = (target != null ? target.getClass() : null);
-				List<Object> chain = this.advised.getInterceptorsAndDynamicInterceptionAdvice(method, targetClass);
+				List<Object> chain = this.advised.getInterceptorsAndDynamicInterceptionAdvice(method, targetClass); // 获取拦截链
 				Object retVal;
 				// Check whether we only have one InvokerInterceptor: that is,
 				// no real advice, but just reflective invocation of the target.

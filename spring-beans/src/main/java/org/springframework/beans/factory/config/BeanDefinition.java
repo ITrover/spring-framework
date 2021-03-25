@@ -46,7 +46,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	 * @see #setScope
 	 * @see ConfigurableBeanFactory#SCOPE_SINGLETON
 	 */
-	String SCOPE_SINGLETON = ConfigurableBeanFactory.SCOPE_SINGLETON;
+	String SCOPE_SINGLETON = ConfigurableBeanFactory.SCOPE_SINGLETON; // singleton
 
 	/**
 	 * Scope identifier for the standard prototype scope: {@value}.
@@ -54,14 +54,14 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	 * @see #setScope
 	 * @see ConfigurableBeanFactory#SCOPE_PROTOTYPE
 	 */
-	String SCOPE_PROTOTYPE = ConfigurableBeanFactory.SCOPE_PROTOTYPE;
+	String SCOPE_PROTOTYPE = ConfigurableBeanFactory.SCOPE_PROTOTYPE; // prototype
 
 
 	/**
 	 * Role hint indicating that a {@code BeanDefinition} is a major part
 	 * of the application. Typically corresponds to a user-defined bean.
 	 */
-	int ROLE_APPLICATION = 0;
+	int ROLE_APPLICATION = 0; // 一般是用户定义的bean，表示这是应用的主要部分
 
 	/**
 	 * Role hint indicating that a {@code BeanDefinition} is a supporting
@@ -152,7 +152,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	 * Set the names of the beans that this bean depends on being initialized.
 	 * The bean factory will guarantee that these beans get initialized first.
 	 */
-	void setDependsOn(@Nullable String... dependsOn);
+	void setDependsOn(@Nullable String... dependsOn); // 设置这个bean依赖的bean，并且它们会在这个bean初始化前初始化
 
 	/**
 	 * Return the bean names that this bean depends on.
@@ -167,7 +167,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	 * if the specified bean is not marked as an autowire candidate. As a consequence,
 	 * autowiring by name will nevertheless inject a bean if the name matches.
 	 */
-	void setAutowireCandidate(boolean autowireCandidate);
+	void setAutowireCandidate(boolean autowireCandidate); // 是否是其他bean依赖的bean
 
 	/**
 	 * Return whether this bean is a candidate for getting autowired into some other bean.
