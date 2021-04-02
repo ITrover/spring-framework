@@ -256,13 +256,13 @@ public class AnnotatedBeanDefinitionReader {
 		}
 
 		abd.setInstanceSupplier(supplier); // 设置实例供给器
-		ScopeMetadata scopeMetadata = this.scopeMetadataResolver.resolveScopeMetadata(abd);
+		ScopeMetadata scopeMetadata = this.scopeMetadataResolver.resolveScopeMetadata(abd); // 解析Scope注解
 		abd.setScope(scopeMetadata.getScopeName());
-		String beanName = (name != null ? name : this.beanNameGenerator.generateBeanName(abd, this.registry));
+		String beanName = (name != null ? name : this.beanNameGenerator.generateBeanName(abd, this.registry)); // 如果没有给beanName，则生成一个beanName
 		// 处理类上的通用注解
 		AnnotationConfigUtils.processCommonDefinitionAnnotations(abd);
-		if (qualifiers != null) {
-			for (Class<? extends Annotation> qualifier : qualifiers) { // 处理类上的每个注解
+		if (qualifiers != null) { // 处理传入的注解
+			for (Class<? extends Annotation> qualifier : qualifiers) {
 				if (Primary.class == qualifier) {
 					abd.setPrimary(true);
 				}
@@ -274,12 +274,12 @@ public class AnnotatedBeanDefinitionReader {
 				}
 			}
 		}
-		if (customizers != null) { // 封装成一个BeanDefinitionHolder
+		if (customizers != null) {  // 如果指定了自定义器，则处理自定义器
 			for (BeanDefinitionCustomizer customizer : customizers) {
 				customizer.customize(abd);
 			}
 		}
-
+		// 封装成一个BeanDefinitionHolder
 		BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(abd, beanName);
 		definitionHolder = AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, this.registry); // 处理 scopedProxyMode
 		BeanDefinitionReaderUtils.registerBeanDefinition(definitionHolder, this.registry); // 把 BeanDefinitionHolder 注册到 registry

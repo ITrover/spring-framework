@@ -326,13 +326,13 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	 * @param advisors the advisors to register
 	 */
 	public void addAdvisors(Collection<Advisor> advisors) {
-		if (isFrozen()) {
+		if (isFrozen()) { // 如果已经冻结，则报错
 			throw new AopConfigException("Cannot add advisor: Configuration is frozen.");
 		}
 		if (!CollectionUtils.isEmpty(advisors)) {
 			for (Advisor advisor : advisors) {
 				if (advisor instanceof IntroductionAdvisor) {
-					validateIntroductionAdvisor((IntroductionAdvisor) advisor);
+					validateIntroductionAdvisor((IntroductionAdvisor) advisor); // 验证
 				}
 				Assert.notNull(advisor, "Advisor must not be null");
 				this.advisors.add(advisor);

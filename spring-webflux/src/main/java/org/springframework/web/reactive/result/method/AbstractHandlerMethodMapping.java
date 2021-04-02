@@ -157,7 +157,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	@Override
 	public void afterPropertiesSet() {
 
-		initHandlerMethods();
+		initHandlerMethods(); // 初始化请求处理方法
 
 		// Total includes detected mappings + explicit registrations via registerMapping..
 		int total = this.getHandlerMethods().size();
@@ -188,7 +188,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 						logger.trace("Could not resolve type for bean '" + beanName + "'", ex);
 					}
 				}
-				if (beanType != null && isHandler(beanType)) {
+				if (beanType != null && isHandler(beanType)) { // 判断bean是否是Handler，即类上是否有@Controller注解和@RequestMapping注解
 					detectHandlerMethods(beanName);
 				}
 			}

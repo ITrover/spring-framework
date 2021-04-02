@@ -476,12 +476,12 @@ public class ExceptionHandlerExceptionResolver extends AbstractHandlerMethodExce
 			// Local exception handler methods on the controller class itself.
 			// To be invoked through the proxy, even in case of an interface-based proxy.
 			handlerType = handlerMethod.getBeanType();
-			ExceptionHandlerMethodResolver resolver = this.exceptionHandlerCache.get(handlerType);
+			ExceptionHandlerMethodResolver resolver = this.exceptionHandlerCache.get(handlerType); // 从缓存中获取异常处理器
 			if (resolver == null) {
 				resolver = new ExceptionHandlerMethodResolver(handlerType);
 				this.exceptionHandlerCache.put(handlerType, resolver);
 			}
-			Method method = resolver.resolveMethod(exception);
+			Method method = resolver.resolveMethod(exception); // 通过异常类获取处理方法
 			if (method != null) {
 				return new ServletInvocableHandlerMethod(handlerMethod.getBean(), method);
 			}

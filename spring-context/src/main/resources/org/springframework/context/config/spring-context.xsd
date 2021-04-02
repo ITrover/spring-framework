@@ -181,7 +181,7 @@
 			]]></xsd:documentation>
 			<xsd:appinfo>
 				<tool:annotation>
-					<tool:exports type="org.springframework.beans.factory.config.PropertyOverrideConfigurer"/>
+					<tool:exports type="org.springframework.beans.factory.cn.cn.itrover.config.PropertyOverrideConfigurer"/>
 				</tool:annotation>
 			</xsd:appinfo>
 		</xsd:annotation>

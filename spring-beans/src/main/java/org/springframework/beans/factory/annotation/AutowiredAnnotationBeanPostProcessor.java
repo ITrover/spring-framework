@@ -717,7 +717,7 @@ public class AutowiredAnnotationBeanPostProcessor implements SmartInstantiationA
 				}
 			}
 			else {
-				arguments = resolveMethodArguments(method, bean, beanName);
+				arguments = resolveMethodArguments(method, bean, beanName); // 处理方法参数
 			}
 			if (arguments != null) {
 				try {
@@ -757,7 +757,7 @@ public class AutowiredAnnotationBeanPostProcessor implements SmartInstantiationA
 				currDesc.setContainingClass(bean.getClass());
 				descriptors[i] = currDesc;
 				try {
-					Object arg = beanFactory.resolveDependency(currDesc, beanName, autowiredBeans, typeConverter);
+					Object arg = beanFactory.resolveDependency(currDesc, beanName, autowiredBeans, typeConverter); // 处理依赖
 					if (arg == null && !this.required) {
 						arguments = null;
 						break;

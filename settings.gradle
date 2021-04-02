@@ -63,4 +63,4 @@ settings.gradle.projectsLoaded {
 	}
 }
 include 'spring-mytest'
-
+include 'spring-mvctest'

@@ -1,10 +1,12 @@
 package cn.itrover.service;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
 @Lazy
+@ComponentScan
 public class UserServiceFacade {
 	private final IUserService userService;
 

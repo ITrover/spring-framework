@@ -374,15 +374,15 @@ public final class RequestMappingInfo implements RequestCondition<RequestMapping
 	@Override
 	@Nullable
 	public RequestMappingInfo getMatchingCondition(HttpServletRequest request) {
-		RequestMethodsRequestCondition methods = this.methodsCondition.getMatchingCondition(request);
+		RequestMethodsRequestCondition methods = this.methodsCondition.getMatchingCondition(request); // 匹配请求方法
 		if (methods == null) {
 			return null;
 		}
-		ParamsRequestCondition params = this.paramsCondition.getMatchingCondition(request);
+		ParamsRequestCondition params = this.paramsCondition.getMatchingCondition(request); // 匹配参数
 		if (params == null) {
 			return null;
 		}
-		HeadersRequestCondition headers = this.headersCondition.getMatchingCondition(request);
+		HeadersRequestCondition headers = this.headersCondition.getMatchingCondition(request); // 匹配请求头
 		if (headers == null) {
 			return null;
 		}

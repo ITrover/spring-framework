@@ -280,7 +280,7 @@ public abstract class AbstractMessageConverterMethodProcessor extends AbstractMe
 						converter.canWrite(valueType, selectedMediaType)) {
 					body = getAdvice().beforeBodyWrite(body, returnType, selectedMediaType,
 							(Class<? extends HttpMessageConverter<?>>) converter.getClass(),
-							inputMessage, outputMessage);
+							inputMessage, outputMessage); // 使用ResponseBodyAdvice处理写之前的操作
 					if (body != null) {
 						Object theBody = body;
 						LogFormatUtils.traceDebug(logger, traceOn ->

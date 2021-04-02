@@ -224,7 +224,7 @@ public abstract class AbstractHttpMessageConverter<T> implements HttpMessageConv
 			}));
 		}
 		else {
-			writeInternal(t, outputMessage);
+			writeInternal(t, outputMessage); // 写返回值，此处已经将结果返回给客户端
 			outputMessage.getBody().flush();
 		}
 	}

@@ -143,7 +143,7 @@ public class ExceptionHandlerMethodResolver {
 	 */
 	@Nullable
 	public Method resolveMethodByThrowable(Throwable exception) {
-		Method method = resolveMethodByExceptionType(exception.getClass());
+		Method method = resolveMethodByExceptionType(exception.getClass()); // 通过异常类型获取处理方法
 		if (method == null) {
 			Throwable cause = exception.getCause();
 			if (cause != null) {
@@ -162,7 +162,7 @@ public class ExceptionHandlerMethodResolver {
 	 */
 	@Nullable
 	public Method resolveMethodByExceptionType(Class<? extends Throwable> exceptionType) {
-		Method method = this.exceptionLookupCache.get(exceptionType);
+		Method method = this.exceptionLookupCache.get(exceptionType); // 通过异常类型获取对应的方法
 		if (method == null) {
 			method = getMappedMethod(exceptionType);
 			this.exceptionLookupCache.put(exceptionType, method);

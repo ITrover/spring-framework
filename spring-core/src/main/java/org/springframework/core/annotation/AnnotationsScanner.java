@@ -451,7 +451,7 @@ abstract class AnnotationsScanner {
 			cached = true;
 		}
 		else {
-			annotations = source.getDeclaredAnnotations();
+			annotations = source.getDeclaredAnnotations(); // 通过反射获取注解
 			if (annotations.length != 0) {
 				boolean allIgnored = true;
 				for (int i = 0; i < annotations.length; i++) {

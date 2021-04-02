@@ -160,7 +160,7 @@ public final class RequestMethodsRequestCondition extends AbstractRequestConditi
 		RequestMethod requestMethod;
 		try {
 			requestMethod = RequestMethod.valueOf(httpMethodValue);
-			if (getMethods().contains(requestMethod)) {
+			if (getMethods().contains(requestMethod)) { // 判断处理方法中是否有requestMethod方法
 				return requestMethodConditionCache.get(httpMethodValue);
 			}
 			if (requestMethod.equals(RequestMethod.HEAD) && getMethods().contains(RequestMethod.GET)) {

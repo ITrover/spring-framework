@@ -10,11 +10,11 @@
 		</websocket:stomp-endpoint>
 		<websocket:simple-broker prefix="/topic"/>
 		<websocket:argument-resolvers>
-			<bean class="org.springframework.web.socket.config.CustomArgumentResolver" />
+			<bean class="org.springframework.web.socket.cn.cn.itrover.config.CustomArgumentResolver" />
 			<ref bean="myArgumentResolver" />
 		</websocket:argument-resolvers>
 		<websocket:return-value-handlers>
-			<bean class="org.springframework.web.socket.config.CustomReturnValueHandler" />
+			<bean class="org.springframework.web.socket.cn.cn.itrover.config.CustomReturnValueHandler" />
 			<ref bean="myReturnValueHandler" />
 		</websocket:return-value-handlers>
 	</websocket:message-broker>

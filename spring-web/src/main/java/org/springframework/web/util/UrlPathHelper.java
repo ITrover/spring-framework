@@ -197,8 +197,8 @@ public class UrlPathHelper {
 	 * @since 5.3
 	 */
 	public String resolveAndCacheLookupPath(HttpServletRequest request) {
-		String lookupPath = getLookupPathForRequest(request);
-		request.setAttribute(PATH_ATTRIBUTE, lookupPath);
+		String lookupPath = getLookupPathForRequest(request); // uri
+		request.setAttribute(PATH_ATTRIBUTE, lookupPath); // 设置org.springframework.web.util.UrlPathHelper.PATH值为lookupPath
 		return lookupPath;
 	}
 
@@ -351,7 +351,7 @@ public class UrlPathHelper {
 	 */
 	public String getPathWithinApplication(HttpServletRequest request) {
 		String contextPath = getContextPath(request);
-		String requestUri = getRequestUri(request);
+		String requestUri = getRequestUri(request); // 获取请求uri
 		String path = getRemainingPath(requestUri, contextPath, true);
 		if (path != null) {
 			// Normal case: URI contains context path.
@@ -454,7 +454,7 @@ public class UrlPathHelper {
 			// Invalid case, but happens for includes on Jetty: silently adapt it.
 			contextPath = "";
 		}
-		return decodeRequestString(request, contextPath);
+		return decodeRequestString(request, contextPath); // 解码请求
 	}
 
 	/**

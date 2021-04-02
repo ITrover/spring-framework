@@ -170,10 +170,10 @@ public abstract class JdbcAccessor implements InitializingBean {
 	 */
 	@Override
 	public void afterPropertiesSet() {
-		if (getDataSource() == null) {
+		if (getDataSource() == null) { // 在属性填充后，如果没有配置数据源，则报错
 			throw new IllegalArgumentException("Property 'dataSource' is required");
 		}
-		if (!isLazyInit()) {
+		if (!isLazyInit()) { // 如果不是懒加载，则这里就要去加载异常翻译器
 			getExceptionTranslator();
 		}
 	}

@@ -123,7 +123,7 @@ public class StringHttpMessageConverter extends AbstractHttpMessageConverter<Str
 			headers.setAcceptCharset(getAcceptedCharsets());
 		}
 		Charset charset = getContentTypeCharset(headers.getContentType());
-		StreamUtils.copy(str, charset, outputMessage.getBody());
+		StreamUtils.copy(str, charset, outputMessage.getBody()); // 此处就已经将结果返回了
 	}
 
 

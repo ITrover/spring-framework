@@ -140,11 +140,11 @@ public abstract class BeanUtils {
 	 */
 	public static <T> T instantiateClass(Class<T> clazz) throws BeanInstantiationException {
 		Assert.notNull(clazz, "Class must not be null");
-		if (clazz.isInterface()) {
+		if (clazz.isInterface()) { // 如果是接口，则报错
 			throw new BeanInstantiationException(clazz, "Specified class is an interface");
 		}
 		try {
-			return instantiateClass(clazz.getDeclaredConstructor());
+			return instantiateClass(clazz.getDeclaredConstructor()); // 通过无参构造器反射
 		}
 		catch (NoSuchMethodException ex) {
 			Constructor<T> ctor = findPrimaryConstructor(clazz);

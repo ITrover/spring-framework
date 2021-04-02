@@ -952,7 +952,7 @@ public abstract class ClassUtils {
 		if (nameEndIndex == -1) {
 			nameEndIndex = className.length();
 		}
-		String shortName = className.substring(lastDotIndex + 1, nameEndIndex);
+		String shortName = className.substring(lastDotIndex + 1, nameEndIndex); // 最后一个. 到className的末尾
 		shortName = shortName.replace(NESTED_CLASS_SEPARATOR, PACKAGE_SEPARATOR);
 		return shortName;
 	}

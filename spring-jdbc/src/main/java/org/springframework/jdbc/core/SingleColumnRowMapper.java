@@ -103,7 +103,7 @@ public class SingleColumnRowMapper<T> implements RowMapper<T> {
 	public T mapRow(ResultSet rs, int rowNum) throws SQLException {
 		// Validate column count.
 		ResultSetMetaData rsmd = rs.getMetaData();
-		int nrOfColumns = rsmd.getColumnCount();
+		int nrOfColumns = rsmd.getColumnCount(); // 获取列数
 		if (nrOfColumns != 1) {
 			throw new IncorrectResultSetColumnCountException(1, nrOfColumns);
 		}

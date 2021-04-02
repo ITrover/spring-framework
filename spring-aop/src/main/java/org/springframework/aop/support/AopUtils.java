@@ -308,8 +308,8 @@ public abstract class AopUtils {
 		}
 		List<Advisor> eligibleAdvisors = new ArrayList<>();
 		for (Advisor candidate : candidateAdvisors) {
-			if (candidate instanceof IntroductionAdvisor && canApply(candidate, clazz)) {
-				eligibleAdvisors.add(candidate);
+			if (candidate instanceof IntroductionAdvisor && canApply(candidate, clazz)) { // 如果候选的Advisor继承于IntroductionAdvisor，同时能够应用于目标类
+				eligibleAdvisors.add(candidate); // 添加到结果中
 			}
 		}
 		boolean hasIntroductions = !eligibleAdvisors.isEmpty();
@@ -318,7 +318,7 @@ public abstract class AopUtils {
 				// already processed
 				continue;
 			}
-			if (canApply(candidate, clazz, hasIntroductions)) {
+			if (canApply(candidate, clazz, hasIntroductions)) { // 处理非IntroductionAdvisor的Advisor
 				eligibleAdvisors.add(candidate);
 			}
 		}

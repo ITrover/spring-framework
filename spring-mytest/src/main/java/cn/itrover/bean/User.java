@@ -1,14 +1,13 @@
 package cn.itrover.bean;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 public class User {
 	private String id;
-	private String name;
+	private String username;
+	private String password;
 
-	public User(String id, String name) {
+	public User(String id, String userName) {
 		this.id = id;
-		this.name = name;
+		this.username = userName;
 	}
 
 	public User() {
@@ -18,7 +17,7 @@ public class User {
 	public String toString() {
 		return "User{" +
 				"id='" + id + '\'' +
-				", name='" + name + '\'' +
+				", name='" + username + '\'' +
 				'}';
 	}
 
@@ -30,16 +29,24 @@ public class User {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public void init(){
-		name = "changed by init";
+		username = "changed by init";
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	private void destroy() {

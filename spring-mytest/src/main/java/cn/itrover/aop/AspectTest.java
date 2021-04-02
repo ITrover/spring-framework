@@ -18,7 +18,7 @@ public class AspectTest {
 		System.out.println("before method.....");
 	}
 
-	@After("test()")
+	@After("execution(void *.*(..))")
 //	@After("this(cn.itrover.service.UserService)")
 	public void afterMethod() {
 		System.out.println("after method.....");

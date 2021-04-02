@@ -126,9 +126,12 @@ public class ServletServerHttpResponse implements ServerHttpResponse {
 				this.servletResponse.setCharacterEncoding(this.headers.getContentType().getCharset().name());
 			}
 			long contentLength = getHeaders().getContentLength();
-			if (contentLength != -1) {
-				this.servletResponse.setContentLengthLong(contentLength);
-			}
+//			if (contentLength != -1) {
+//				try {
+//					this.servletResponse.setContentLengthLong(contentLength);
+//				} catch (Exception e) {
+//				}
+//			}
 			this.headersWritten = true;
 		}
 	}

@@ -235,7 +235,7 @@ public abstract class AnnotationConfigUtils {
 	}
 
 	static void processCommonDefinitionAnnotations(AnnotatedBeanDefinition abd, AnnotatedTypeMetadata metadata) {
-		AnnotationAttributes lazy = attributesFor(metadata, Lazy.class);
+		AnnotationAttributes lazy = attributesFor(metadata, Lazy.class); // lazy
 		if (lazy != null) {
 			abd.setLazyInit(lazy.getBoolean("value"));
 		}
@@ -246,19 +246,19 @@ public abstract class AnnotationConfigUtils {
 			}
 		}
 
-		if (metadata.isAnnotated(Primary.class.getName())) {
+		if (metadata.isAnnotated(Primary.class.getName())) { // primary
 			abd.setPrimary(true);
 		}
-		AnnotationAttributes dependsOn = attributesFor(metadata, DependsOn.class);
+		AnnotationAttributes dependsOn = attributesFor(metadata, DependsOn.class); // dependson
 		if (dependsOn != null) {
 			abd.setDependsOn(dependsOn.getStringArray("value"));
 		}
 
-		AnnotationAttributes role = attributesFor(metadata, Role.class);
+		AnnotationAttributes role = attributesFor(metadata, Role.class); // role
 		if (role != null) {
 			abd.setRole(role.getNumber("value").intValue());
 		}
-		AnnotationAttributes description = attributesFor(metadata, Description.class);
+		AnnotationAttributes description = attributesFor(metadata, Description.class); // description
 		if (description != null) {
 			abd.setDescription(description.getString("value"));
 		}
