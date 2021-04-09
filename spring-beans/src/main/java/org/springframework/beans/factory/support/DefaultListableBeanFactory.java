@@ -923,7 +923,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			if (!bd.isAbstract() && bd.isSingleton() && !bd.isLazyInit()) { // 不是抽象 && 是单例 && 不是懒加载
 				if (isFactoryBean(beanName)) { // 判断是否是工厂bean
 					Object bean = getBean(FACTORY_BEAN_PREFIX + beanName); // 如果是 factoryBean，则 加上 &，先创建工厂 bea
-					if (bean instanceof FactoryBean) {
+					if (bean instanceof FactoryBean) { // 创建了一个FactoryBean
 						FactoryBean<?> factory = (FactoryBean<?>) bean;
 						boolean isEagerInit;
 						if (System.getSecurityManager() != null && factory instanceof SmartFactoryBean) {

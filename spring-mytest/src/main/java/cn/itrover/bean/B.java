@@ -8,7 +8,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
-@DependsOn(value = {"a"})
+//@DependsOn(value = {"a"})
 public class B {
 
 	private A a;

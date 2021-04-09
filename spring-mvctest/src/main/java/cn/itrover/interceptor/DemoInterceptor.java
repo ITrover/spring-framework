@@ -2,22 +2,23 @@ package cn.itrover.interceptor;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class DemoInterceptor implements AsyncHandlerInterceptor {
+public class DemoInterceptor implements HandlerInterceptor {
 
-	@Override
-	public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		System.out.println("此方法只有在异步的情况下才会被调用");
-	}
+//	@Override
+//	public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//		System.out.println("此方法只有在异步的情况下才会被调用");
+//	}
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		System.out.println("前置拦截器，在调用处理器方法前调用");
-		return false;
+		return true;
 	}
 
 	@Override

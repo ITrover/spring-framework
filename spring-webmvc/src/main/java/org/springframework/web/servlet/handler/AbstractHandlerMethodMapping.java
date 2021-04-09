@@ -218,9 +218,9 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	 * @see #processCandidateBean
 	 * @see #handlerMethodsInitialized
 	 */
-	protected void initHandlerMethods() {
-		for (String beanName : getCandidateBeanNames()) {
-			if (!beanName.startsWith(SCOPED_TARGET_NAME_PREFIX)) {
+	protected void initHandlerMethods() { // 初始化HandlerMethods
+		for (String beanName : getCandidateBeanNames()) { // 获取所有的Bean
+			if (!beanName.startsWith(SCOPED_TARGET_NAME_PREFIX)) { // 排除scopedTarget.开头的Bean
 				processCandidateBean(beanName);
 			}
 		}
@@ -262,7 +262,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 			}
 		}
 		if (beanType != null && isHandler(beanType)) {
-			detectHandlerMethods(beanName);
+			detectHandlerMethods(beanName); // 选择HandlerMethod
 		}
 	}
 
@@ -273,7 +273,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	 */
 	protected void detectHandlerMethods(Object handler) {
 		Class<?> handlerType = (handler instanceof String ?
-				obtainApplicationContext().getType((String) handler) : handler.getClass());
+				obtainApplicationContext().getType((String) handler) : handler.getClass()); // 获取Handler的类对象
 
 		if (handlerType != null) {
 			Class<?> userType = ClassUtils.getUserClass(handlerType);
@@ -373,7 +373,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 		String lookupPath = initLookupPath(request); // uri
 		this.mappingRegistry.acquireReadLock();
 		try {
-			HandlerMethod handlerMethod = lookupHandlerMethod(lookupPath, request);
+			HandlerMethod handlerMethod = lookupHandlerMethod(lookupPath, request); // 寻找HandlerMethod
 			return (handlerMethod != null ? handlerMethod.createWithResolvedBean() : null); // 新建一个HandlerMethod去处理请求
 		}
 		finally {

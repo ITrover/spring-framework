@@ -35,7 +35,8 @@ public class Main {
 //		Method method = context.getClass().getSuperclass().getSuperclass().getDeclaredMethod("registerListeners");
 //		method.setAccessible(true);
 //		method.invoke(context);
-//		IUserService userService = (IUserService) context.getBean("userService");
+		IUserService userService = (IUserService) context.getBean("userService");
+		userService.sayHi();
 //		IUserService userService = context.getBean(IUserService.class);
 //		User user = userService.getUserById(1);
 //		System.out.println(user);

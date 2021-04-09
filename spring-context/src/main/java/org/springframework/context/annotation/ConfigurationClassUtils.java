@@ -105,7 +105,7 @@ abstract class ConfigurationClassUtils {
 					AopInfrastructureBean.class.isAssignableFrom(beanClass) ||
 					EventListenerFactory.class.isAssignableFrom(beanClass)) {
 				return false;
-			}
+			} // 排除BeanFactoryPostProcessor、BeanPostProcessor、AopInfrastructureBean、EventListenerFactory这些类
 			metadata = AnnotationMetadata.introspect(beanClass);
 		}
 		else {

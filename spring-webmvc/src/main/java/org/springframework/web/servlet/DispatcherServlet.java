@@ -585,9 +585,9 @@ public class DispatcherServlet extends FrameworkServlet {
 	 */
 	private void initHandlerMappings(ApplicationContext context) {
 		this.handlerMappings = null;
-
+		// 选择所有HandlerMapping类 或 只要beanName为handlerMapping的bean
 		if (this.detectAllHandlerMappings) {
-			// Find all HandlerMappings in the ApplicationContext, including ancestor contexts.
+			// 查找容器及父容器中的所有HandlerMapping类
 			Map<String, HandlerMapping> matchingBeans =
 					BeanFactoryUtils.beansOfTypeIncludingAncestors(context, HandlerMapping.class, true, false);
 			if (!matchingBeans.isEmpty()) {
@@ -609,6 +609,7 @@ public class DispatcherServlet extends FrameworkServlet {
 		// Ensure we have at least one HandlerMapping, by registering
 		// a default HandlerMapping if no other mappings are found.
 		if (this.handlerMappings == null) {
+			// 没有则使用默认的
 			this.handlerMappings = getDefaultStrategies(context, HandlerMapping.class);
 			if (logger.isTraceEnabled()) {
 				logger.trace("No HandlerMappings declared for servlet '" + getServletName() +
@@ -1251,8 +1252,8 @@ public class DispatcherServlet extends FrameworkServlet {
 	@Nullable
 	protected HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
 		if (this.handlerMappings != null) {
-			for (HandlerMapping mapping : this.handlerMappings) {
-				HandlerExecutionChain handler = mapping.getHandler(request);
+			for (HandlerMapping mapping : this.handlerMappings) { // 遍历所有HandlerMapping
+				HandlerExecutionChain handler = mapping.getHandler(request); // 通过HandlerMapping的getHandler方法获取HandlerExecutionChain
 				if (handler != null) {
 					return handler;
 				}
@@ -1287,7 +1288,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	 */
 	protected HandlerAdapter getHandlerAdapter(Object handler) throws ServletException {
 		if (this.handlerAdapters != null) {
-			for (HandlerAdapter adapter : this.handlerAdapters) {
+			for (HandlerAdapter adapter : this.handlerAdapters) { // 遍历所有的handlerAdpater，若匹配则返回
 				if (adapter.supports(handler)) {
 					return adapter;
 				}

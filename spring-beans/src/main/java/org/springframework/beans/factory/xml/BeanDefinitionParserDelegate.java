@@ -590,7 +590,7 @@ public class BeanDefinitionParserDelegate {
 
 		if (ele.hasAttribute(DEPENDS_ON_ATTRIBUTE)) { // 解析depends-on属性
 			String dependsOn = ele.getAttribute(DEPENDS_ON_ATTRIBUTE);
-			bd.setDependsOn(StringUtils.tokenizeToStringArray(dependsOn, MULTI_VALUE_ATTRIBUTE_DELIMITERS));
+			bd.setDependsOn(StringUtils.tokenizeToStringArray(dependsOn, MULTI_VALUE_ATTRIBUTE_DELIMITERS)); // 设置到beanDefinition的dependsOn属性
 		}
 		// 解析autowire-candidate属性
 		String autowireCandidate = ele.getAttribute(AUTOWIRE_CANDIDATE_ATTRIBUTE);

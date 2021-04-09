@@ -9,7 +9,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
-@DependsOn(value = "b")
+//@DependsOn(value = "b")
 public class A implements InitializingBean {
 
 	private B b;

@@ -286,7 +286,7 @@ public abstract class AopUtils {
 		}
 		else if (advisor instanceof PointcutAdvisor) {
 			PointcutAdvisor pca = (PointcutAdvisor) advisor;
-			return canApply(pca.getPointcut(), targetClass, hasIntroductions);
+			return canApply(pca.getPointcut(), targetClass, hasIntroductions); // 匹配，判断是否能被应用
 		}
 		else {
 			// It doesn't have a pointcut so we assume it applies.
@@ -314,7 +314,7 @@ public abstract class AopUtils {
 		}
 		boolean hasIntroductions = !eligibleAdvisors.isEmpty();
 		for (Advisor candidate : candidateAdvisors) {
-			if (candidate instanceof IntroductionAdvisor) {
+			if (candidate instanceof IntroductionAdvisor) { // 前面处理的是IntroductionAdvisor，这里步处理
 				// already processed
 				continue;
 			}

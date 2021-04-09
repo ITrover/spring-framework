@@ -495,21 +495,21 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 	@Override
 	@Nullable
 	public final HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
-		Object handler = getHandlerInternal(request);
+		Object handler = getHandlerInternal(request); // 子类实现，获取HandlerMethod
 		if (handler == null) { // 没有handler，则使用默认的handler
 			handler = getDefaultHandler();
 		}
-		if (handler == null) {
+		if (handler == null) { // 默认handler都没有，则返回null
 			return null;
 		}
 		// Bean name or resolved handler?
-		if (handler instanceof String) {
+		if (handler instanceof String) { // 如果返回的是String，则去容器寻找对于的Bean
 			String handlerName = (String) handler;
 			handler = obtainApplicationContext().getBean(handlerName);
 		}
 
 		// Ensure presence of cached lookupPath for interceptors and others
-		if (!ServletRequestPathUtils.hasCachedPath(request)) {
+		if (!ServletRequestPathUtils.hasCachedPath(request)) { // 判断是否缓存uri
 			initLookupPath(request);
 		}
 
@@ -602,7 +602,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 	 */
 	protected HandlerExecutionChain getHandlerExecutionChain(Object handler, HttpServletRequest request) {
 		HandlerExecutionChain chain = (handler instanceof HandlerExecutionChain ?
-				(HandlerExecutionChain) handler : new HandlerExecutionChain(handler));
+				(HandlerExecutionChain) handler : new HandlerExecutionChain(handler)); // 如果handler不是HandlerExecutionChain类型，则包装成HandlerExecutionChain
 
 		for (HandlerInterceptor interceptor : this.adaptedInterceptors) {
 			if (interceptor instanceof MappedInterceptor) { // 遍历所有拦截器，如果匹配当前请求则添加

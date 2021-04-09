@@ -3,10 +3,12 @@ package cn.itrover.service;
 import cn.itrover.annotation.Log;
 import cn.itrover.bean.User;
 import cn.itrover.dao.IUserDao;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 @Log
 @Service
+@Lazy
 public class UserService implements IUserService{
 
 	private final User user;
